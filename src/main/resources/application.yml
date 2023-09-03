@@ -16,5 +16,12 @@ spring:
                 dialect: org.hibernate.dialect.MySQL8Dialect
                 format_sql: true
         database: mysql
+    security:
+        user:
+            name: user
+            password: password
+logging:
+    level:
+      org.springframework.security.web: DEBUG
 server:
     port: 8081
