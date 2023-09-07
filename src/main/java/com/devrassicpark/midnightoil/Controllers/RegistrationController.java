@@ -1,8 +1,7 @@
 package com.devrassicpark.midnightoil.Controllers;
 
-import com.devrassicpark.midnightoil.DTO.Employee;
 import com.devrassicpark.midnightoil.DTO.EmployeeRegistrationDto;
-import com.devrassicpark.midnightoil.Service.RegistrationService;
+import com.devrassicpark.midnightoil.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/registration")
 public class RegistrationController {
 
-    private final RegistrationService registrationService;
+    private final UserService userService;
 
-    public RegistrationController(RegistrationService registrationService){
-        this.registrationService = registrationService;
+    public RegistrationController(UserService userService){
+        this.userService = userService;
     }
 
     @PostMapping("/employee")
     public ResponseEntity<String> registerEmployee(@RequestBody EmployeeRegistrationDto registrationDto) {
         try {
-            registrationService.registerEmployee(registrationDto);
+            userService.registerEmployee(registrationDto);
             return ResponseEntity.ok("Employee registered successfully");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
