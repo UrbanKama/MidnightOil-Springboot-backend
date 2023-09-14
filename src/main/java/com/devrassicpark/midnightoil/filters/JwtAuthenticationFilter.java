@@ -1,8 +1,10 @@
 package com.devrassicpark.midnightoil.filters;
 
+import com.devrassicpark.midnightoil.services.JwtService;
 import com.devrassicpark.midnightoil.services.UserService;
 import com.sun.net.httpserver.HttpServer;
-import io.micrometer.common.util.StringUtils;
+//import io.micrometer.common.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,7 +52,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     if (jwtService.isTokenValid(jwt, userDetails)) {
                         log.debug("User - {}", userDetails);
                         SecurityContext context = SecurityContextHolder.createEmptyContext();
-                        usernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                                 userDetails,null, userDetails.getAuthorities());
                         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                         context.setAuthentication(authToken);
