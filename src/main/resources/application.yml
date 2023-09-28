@@ -21,7 +21,9 @@ logging:
       org.springframework.security.web: DEBUG
 server:
     port: 8081
-token:
-    expirationms: 3600000
-    secret:
-        key: 8b2fc3ba5f499cd65f8d71d293247e54a44a2bb455ebcee082692b3f50dd0ca8
+jwt:
+    secret: '8b2fc3ba5f499cd65f8d71d293247e54a44a2bb455ebcee082692b3f50dd0ca8'
+#token:
+#    expirationms: 3600000
+#    secret:
+#        key: 8b2fc3ba5f499cd65f8d71d293247e54a44a2bb455ebcee082692b3f50dd0ca8
