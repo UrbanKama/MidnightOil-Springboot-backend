@@ -32,7 +32,7 @@ public class SecurityConfiguration {
     private JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private UserDetailsService userDetailsService;
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public SecurityConfiguration(JwtAuthorizationFilter jwtAuthorizationFilter,
@@ -44,13 +44,8 @@ public class SecurityConfiguration {
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.userDetailsService = userDetailsService;
-//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-
-//    @Bean
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
-//    }
 
 
     @Autowired
@@ -73,8 +68,7 @@ public class SecurityConfiguration {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, SecurityConstant.PUBLIC_URLS).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/test/**").permitAll()
+                        .requestMatchers(SecurityConstant.PUBLIC_URLS).permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception ->

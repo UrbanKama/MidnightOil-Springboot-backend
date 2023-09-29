@@ -1,15 +1,19 @@
 package com.devrassicpark.midnightoil.Resource;
 
+import com.devrassicpark.midnightoil.Exception.domains.EmailExistsException;
+import com.devrassicpark.midnightoil.Exception.domains.ExceptionHandling;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/employee")
-public class EmployeeResource {
+@RequestMapping(path = {"/","/employee"})
+public class EmployeeResource extends ExceptionHandling {
 
     @GetMapping("/home")
-    public String showEmployee(){
-        return "Application works";
+    public String showEmployee() throws EmailExistsException{
+
+//        return "Application works";
+        throw new EmailExistsException("this email is taken");
     }
 }
