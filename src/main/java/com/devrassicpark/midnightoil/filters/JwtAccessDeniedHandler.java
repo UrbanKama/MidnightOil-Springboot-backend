@@ -21,7 +21,7 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
     // This class handles request from users that do not have the required authorities to access the request/resource
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
 
         HttpResponse httpResponse = new HttpResponse(
                 HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED,

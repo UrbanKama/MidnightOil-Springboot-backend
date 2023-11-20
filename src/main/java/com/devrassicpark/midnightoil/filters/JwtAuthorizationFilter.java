@@ -6,6 +6,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -21,6 +23,7 @@ import java.util.List;
 public class JwtAuthorizationFilter  extends OncePerRequestFilter {
 
     private JwtTokenProvider jwtTokenProvider;
+    private Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     public JwtAuthorizationFilter(JwtTokenProvider jwtTokenProvider){
         this.jwtTokenProvider = jwtTokenProvider;
@@ -40,6 +43,7 @@ public class JwtAuthorizationFilter  extends OncePerRequestFilter {
             String username = jwtTokenProvider.getSubject(token);
             if (jwtTokenProvider.isTokenValid(username, token) && SecurityContextHolder.getContext().getAuthentication() == null){
                 List<GrantedAuthority> authorities = jwtTokenProvider.getAuthorities(token);
+                LOGGER.info("user authorities: " + authorities);
                 Authentication authentication = jwtTokenProvider.getAuthentication(username, authorities, request);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } else {

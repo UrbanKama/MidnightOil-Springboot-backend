@@ -49,10 +49,10 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String username, List<GrantedAuthority> authorities, HttpServletRequest request){
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                new UsernamePasswordAuthenticationToken(username,null, authorities );
-        usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        return usernamePasswordAuthenticationToken;
+        UsernamePasswordAuthenticationToken employeePasswordAuthenticationToken =
+                new UsernamePasswordAuthenticationToken(username,null, authorities);
+        employeePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        return employeePasswordAuthenticationToken;
     }
 
     //check if token is valid
