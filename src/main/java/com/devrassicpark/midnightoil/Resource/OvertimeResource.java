@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = {"/", "/overtime"})
 @CrossOrigin("http://localhost:4200")
@@ -31,5 +33,11 @@ public class OvertimeResource {
         Overtime newOvertimeShift = overtimeService.createOvertimeShift(overtime.getShiftDate(), overtime.getShiftStartTime(), overtime.getShiftEndTime(), overtime.getDepartment(), overtime.getCoveredBy());
 
         return new ResponseEntity<>(newOvertimeShift, HttpStatus.OK);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<Overtime>> getAllAvailableOvertime(){
+        List<Overtime> overtimeShifts = overtimeService.getOvertimeShifts();
+        return new ResponseEntity<>(overtimeShifts, HttpStatus.OK);
     }
 }
