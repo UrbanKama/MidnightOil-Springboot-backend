@@ -49,7 +49,7 @@ public class OvertimeServiceImplementation implements OvertimeService {
 
     @Override
     public List<Overtime> getOvertimeShifts() {
-        return null;
+        return overtimeRepository.findAll();
     }
 
     @Override
