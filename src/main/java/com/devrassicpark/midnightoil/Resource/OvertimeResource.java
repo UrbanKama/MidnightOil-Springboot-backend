@@ -3,17 +3,21 @@ package com.devrassicpark.midnightoil.Resource;
 import com.devrassicpark.midnightoil.Utility.JwtTokenProvider;
 import com.devrassicpark.midnightoil.models.Overtime;
 import com.devrassicpark.midnightoil.services.OvertimeService;
+import org.hibernate.sql.ast.tree.expression.Over;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
-@RestController
+
 @RequestMapping(path = {"/", "/overtime"})
-@CrossOrigin("http://localhost:4200")
+@RestController
 public class OvertimeResource {
 
     private OvertimeService overtimeService;
@@ -27,6 +31,7 @@ public class OvertimeResource {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
+    // CREATE AN OVERTIME SHIFT
     @PostMapping("/createShift")
     public ResponseEntity<Overtime> createOvertimeShift(@RequestBody Overtime overtime){
 
@@ -35,9 +40,17 @@ public class OvertimeResource {
         return new ResponseEntity<>(newOvertimeShift, HttpStatus.OK);
     }
 
-    @GetMapping("/list")
+    // GET ALL AVAILABLE OVERTIME
+    @GetMapping("/allOvertime")
     public ResponseEntity<List<Overtime>> getAllAvailableOvertime(){
         List<Overtime> overtimeShifts = overtimeService.getOvertimeShifts();
         return new ResponseEntity<>(overtimeShifts, HttpStatus.OK);
+    }
+
+    // GET AVAILABLE OVERTIME BY DATE
+    @GetMapping("/availableOvertime/{date}")
+    public ResponseEntity<List<Overtime>> getAvailableOvertimeByDate(@PathVariable("date") @DateTimeFormat(pattern= "dd-MM-yyyy") Date date){
+        List<Overtime> availableOvertime = overtimeService.getAvailableOvertimeByDate(date);
+        return new ResponseEntity<>(availableOvertime, HttpStatus.OK);
     }
 }

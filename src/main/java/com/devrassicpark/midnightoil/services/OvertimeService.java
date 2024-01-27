@@ -13,8 +13,11 @@ public interface OvertimeService {
     // Get all available overtime
     List<Overtime> getOvertimeShifts();
 
+    // GET AVAILABLE OVERTIME BY DATE
+    List<Overtime> getAvailableOvertimeByDate(Date shiftDate);
+
     // Create an Overtime shift
-    Overtime createOvertimeShift(LocalDate shiftDate, String shiftStartTime, String shiftEndTime, String department, String coveredBy);
+    Overtime createOvertimeShift(Date shiftDate, String shiftStartTime, String shiftEndTime, String department, String coveredBy);
 
     // Delete Overtime shift
     void deleteOvertimeShift(Long id);

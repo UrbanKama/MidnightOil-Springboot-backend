@@ -22,8 +22,9 @@ public class Overtime implements Serializable {
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy", timezone = "Europe/London")
-    private LocalDate shiftDate;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    @Temporal(TemporalType.DATE)
+    private Date shiftDate;
 
     private String shiftStartTime;
 
@@ -34,7 +35,7 @@ public class Overtime implements Serializable {
     // default constructor
 //    public Overtime(){}
 
-    public Overtime(Long id, LocalDate shiftDate, String shiftStartTime, String shiftEndTime, String department, String coveredBy) {
+    public Overtime(Long id, Date shiftDate, String shiftStartTime, String shiftEndTime, String department, String coveredBy) {
         this.id = id;
         this.shiftDate = shiftDate;
         this.shiftStartTime = shiftStartTime;
@@ -51,11 +52,11 @@ public class Overtime implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getShiftDate() {
+    public Date getShiftDate() {
         return shiftDate;
     }
 
-    public void setShiftDate(LocalDate shiftDate) {
+    public void setShiftDate(Date shiftDate) {
         this.shiftDate = shiftDate;
     }
 
